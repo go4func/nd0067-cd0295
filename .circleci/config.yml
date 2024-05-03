@@ -4,21 +4,23 @@ orbs:
   node: circleci/node@5.2.0
   eb: circleci/aws-elastic-beanstalk@2.0.1
   aws-cli: circleci/aws-cli@3.1.1
+  browser-tools: circleci/browser-tools@1.4.8
 jobs:
   build:
     docker:
       # the base image can run most needed actions with orbs
       - image: "cimg/node:20.11.1-browsers"
     steps:
-      # # install node and checkout code
-      # - node/install:
-      #     node-version: "20.11.1"
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - checkout
       - run:
           name: Env Information
           command: |
             echo "NODE Version: $(node --version)"
-            echo "NPM Version:$(npm --version)"
+            echo "NPM Version: $(npm --version)"
+            echo "Chrome Version: $(google-chrome --version)"
+            echo "Chrome Driver Version: $(chromedriver --version)"
       - run:
           name: Install Front-End Dependencies
           command: |
