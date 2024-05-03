@@ -12,7 +12,7 @@
     "lint": "NODE_OPTIONS=--openssl-legacy-provider ng lint",
     "e2e": "NODE_OPTIONS=--openssl-legacy-provider ng e2e",
     "build:prod": "npm run ins && NODE_OPTIONS=--openssl-legacy-provider ng build --prod",
-    "deploy": "npm run build && chmod +x bin/deploy.sh && bin/deploy.sh"
+    "deploy": "npm run build:prod && chmod +x bin/deploy.sh && bin/deploy.sh"
   },
   "private": true,
   "dependencies": {
