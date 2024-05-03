@@ -1,28 +1,24 @@
 version: 2.1
 orbs:
   # orgs contain basic recipes and reproducible actions (install node, aws, etc.)
-  node: circleci/node@5.0.2
+  node: circleci/node@5.2.0
   eb: circleci/aws-elastic-beanstalk@2.0.1
   aws-cli: circleci/aws-cli@3.1.1
-  # different jobs are called later in the workflows sections
 jobs:
   build:
     docker:
       # the base image can run most needed actions with orbs
-      - image: "cimg/node:20.11.1"
+      - image: "cimg/node:20.11.1-browsers"
     steps:
-      # install node and checkout code
-      - node/install:
-          node-version: "20.11.1"
+      # # install node and checkout code
+      # - node/install:
+      #     node-version: "20.11.1"
       - checkout
-      # Use root level package.json to install dependencies in the frontend app
       - run:
-          name: Env information
+          name: Env Information
           command: |
-            echo "NODE --version" 
-            echo $(node --version)
-            echo "NPM --version" 
-            echo $(npm --version)
+            echo "NODE version: $(node --version)""
+            echo "NPM version:$(npm --version) "
       - run:
           name: Install Front-End Dependencies
           command: |
@@ -36,6 +32,10 @@ jobs:
           command: |
             npm run frontend:lint
       - run:
+          name: Front-End Test
+          command: |
+            npm run frontend:test
+      - run:
           name: Front-End Build
           command: |
             npm run frontend:build
@@ -46,11 +46,9 @@ jobs:
   # deploy step will run only after manual approval
   deploy:
     docker:
-      - image: "cimg/base:stable"
+      - image: "cimg/node:20.11.1-browsers"
       # more setup needed for aws, node, elastic beanstalk
     steps:
-      - node/install:
-          node-version: "20.11.1"
       - eb/setup
       - aws-cli/setup
       - checkout
