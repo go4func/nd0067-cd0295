@@ -32,7 +32,7 @@ export class ApiService {
   }
 
   setAuthToken(token) {
-    this.httpOptions.headers = this.httpOptions.headers.append(
+    this.httpOptions.headers = this.httpOptions.headers.set(
       "Authorization",
       `jwt ${token}`
     );
