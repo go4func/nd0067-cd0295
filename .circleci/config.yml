@@ -17,8 +17,8 @@ jobs:
       - run:
           name: Env Information
           command: |
-            echo "NODE version: $(node --version)""
-            echo "NPM version:$(npm --version) "
+            echo "NODE Version: $(node --version)"
+            echo "NPM Version:$(npm --version)"
       - run:
           name: Install Front-End Dependencies
           command: |
