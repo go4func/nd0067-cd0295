@@ -21,22 +21,22 @@ jobs:
             echo "NPM Version: $(npm --version)"
             echo "Chrome Version: $(google-chrome --version)"
             echo "Chrome Driver Version: $(chromedriver --version)"
-      - restore_cache:
-          name: Restore NPM Cache
-          keys:
-            - npm-deps-{{ checksum "udagram/udagram-api/package-lock.json" }}-{{ checksum "udagram/udagram-frontend/package-lock.json" }}
+      # - restore_cache:
+      #     name: Restore NPM Cache
+      #     keys:
+      #       - npm-deps-{{ checksum "udagram/udagram-api/package-lock.json" }}-{{ checksum "udagram/udagram-frontend/package-lock.json" }}
       - run:
           name: Install Front-End Dependencies
           command: npm run frontend:install
       - run:
           name: Install API Dependencies
           command: npm run api:install
-      - save_cache:
-          name: Save NPM Cache
-          key: npm-deps-{{ .Branch }}-{{ checksum "udagram/udagram-api/package-lock.json" }}-{{ checksum "udagram/udagram-frontend/package-lock.json" }}
-          paths:
-            - "udagram/udagram-api/node_modules"
-            - "udagram/udagram-frontend/node_modules"
+      # - save_cache:
+      #     name: Save NPM Cache
+      #     key: npm-deps-{{ .Branch }}-{{ checksum "udagram/udagram-api/package-lock.json" }}-{{ checksum "udagram/udagram-frontend/package-lock.json" }}
+      #     paths:
+      #       - "udagram/udagram-api/node_modules"
+      #       - "udagram/udagram-frontend/node_modules"
       - run:
           name: Front-End Lint
           command: npm run frontend:lint
@@ -51,7 +51,7 @@ jobs:
           command: npm run api:build
       - save_cache:
           name: Save Build Cache
-          key: build-{{ .Branch }}-{{ git rev-parse HEAD }}
+          key: build-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
           paths:
             - "udagram/udagram-api/www"
             - "udagram/udagram-frontend/www"
@@ -68,7 +68,7 @@ jobs:
       - restore_cache:
           name: Restore Build Cache
           keys:
-            - build-{{ .Branch }}-{{ git rev-parse HEAD }}
+            - build-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
       - run:
           name: Deploy App
           command: |
