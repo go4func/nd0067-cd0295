@@ -1,4 +1,8 @@
 version: 2.1
+parameters:
+  postgres_host:
+    type: string
+    default: ${POSTGRES_HOST}
 orbs:
   # orgs contain basic recipes and reproducible actions (install node, aws, etc.)
   node: circleci/node@5.2.0
@@ -21,38 +25,29 @@ jobs:
             echo "NPM Version: $(npm --version)"
             echo "Chrome Version: $(google-chrome --version)"
             echo "Chrome Driver Version: $(chromedriver --version)"
-      # - restore_cache:
-      #     name: Restore NPM Cache
-      #     keys:
-      #       - npm-deps-{{ checksum "udagram/udagram-api/package-lock.json" }}-{{ checksum "udagram/udagram-frontend/package-lock.json" }}
+      # - run:
+      #     name: Install Front-End Dependencies
+      #     command: npm run frontend:install
+      # - run:
+      #     name: Install API Dependencies
+      #     command: npm run api:install
+      # - run:
+      #     name: Front-End Lint
+      #     command: npm run frontend:lint
+      # - run:
+      #     name: Front-End Test
+      #     command: npm run frontend:test
+      # - run:
+      #     name: Front-End Build
+      #     command: npm run frontend:build
+      # - run:
+      #     name: API Build
+      #     command: npm run api:build
       - run:
-          name: Install Front-End Dependencies
-          command: npm run frontend:install
-      - run:
-          name: Install API Dependencies
-          command: npm run api:install
-      # - save_cache:
-      #     name: Save NPM Cache
-      #     key: npm-deps-{{ .Branch }}-{{ checksum "udagram/udagram-api/package-lock.json" }}-{{ checksum "udagram/udagram-frontend/package-lock.json" }}
-      #     paths:
-      #       - "udagram/udagram-api/node_modules"
-      #       - "udagram/udagram-frontend/node_modules"
-      - run:
-          name: Front-End Lint
-          command: npm run frontend:lint
-      - run:
-          name: Front-End Test
-          command: npm run frontend:test
-      - run:
-          name: Front-End Build
-          command: npm run frontend:build
-      - run:
-          name: API Build
-          command: npm run api:build
-      - run:
-          name: Inject ENV
+          name: Create Env File
           command: |
-            printenv >> udagram/udagram-api/www/.env
+            touch udagram/udagram-api/www/.env
+            echo 'POSTGRES_HOST=<< pipeline.parameters.postgres_host >>' >>udagram/udagram-api/www/.env
             cat udagram/udagram-api/www/.env
       - save_cache:
           name: Save Build Cache
