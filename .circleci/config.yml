@@ -11,7 +11,7 @@ jobs:
     docker:
       - image: "cimg/node:20.11.1-browsers"
     steps:
-      - browser-tools/install-chrome:
+      - browser-tools/install-chrome
         # chrome-version: "114.0.5735.16"
       - browser-tools/install-chromedriver
       - checkout
