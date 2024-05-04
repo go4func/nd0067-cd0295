@@ -49,6 +49,21 @@ jobs:
       - run:
           name: API Build
           command: npm run api:build
+      - run:
+          name: Inject ENV
+          command: |
+            touch udagram/udagram-api/www/.env
+            echo POSTGRES_HOST=${POSTGRES_HOST} >> udagram/udagram-api/www/.env
+            echo POSTGRES_USERNAME=${POSTGRES_USERNAME} >> udagram/udagram-api/www/.env
+            echo POSTGRES_DB=${POSTGRES_DB} >> udagram/udagram-api/www/.env
+            echo POSTGRES_PASSWORD=${POSTGRES_PASSWORD} >> udagram/udagram-api/www/.env
+            echo AWS_REGION=${AWS_REGION} >> udagram/udagram-api/www/.env
+            echo AWS_PROFILE=${AWS_PROFILE} >> udagram/udagram-api/www/.env
+            echo AWS_BUCKET=${AWS_BUCKET} >> udagram/udagram-api/www/.env
+            echo URL=${URL} >> udagram/udagram-api/www/.env
+            echo JWT_SECRET=${JWT_SECRET} >> udagram/udagram-api/www/.env
+            echo AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} >> udagram/udagram-api/www/.env
+            echo AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} >> udagram/udagram-api/www/.env
       - save_cache:
           name: Save Build Cache
           key: build-{{ .Branch }}-{{ .Revision }}
@@ -72,8 +87,7 @@ jobs:
       - run:
           name: Deploy App
           command: |
-            ls -la udagram/udagram-api/www
-            ls -la udagram/udagram-frontend/www
+            cat udagram/udagram-api/www/.env
             npm run deploy
 
 workflows:
