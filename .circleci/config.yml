@@ -33,7 +33,7 @@ jobs:
           command: npm run api:install
       - save_cache:
           name: Save NPM Cache
-          key: npm-deps-{{ checksum "udagram/udagram-api/package-lock.json" }}-{{ checksum "udagram/udagram-frontend/package-lock.json" }}
+          key: npm-deps-{{ .Branch }}-{{ checksum "udagram/udagram-api/package-lock.json" }}-{{ checksum "udagram/udagram-frontend/package-lock.json" }}
           paths:
             - "udagram/udagram-api/node_modules"
             - "udagram/udagram-frontend/node_modules"
@@ -51,7 +51,7 @@ jobs:
           command: npm run api:build
       - save_cache:
           name: Save Build Cache
-          key: build-{{ .Branch }}
+          key: build-{{ .Branch }}-{{ git rev-parse HEAD }}
           paths:
             - "udagram/udagram-api/www"
             - "udagram/udagram-frontend/www"
@@ -68,7 +68,7 @@ jobs:
       - restore_cache:
           name: Restore Build Cache
           keys:
-            - build-{{ .Branch }}
+            - build-{{ .Branch }}-{{ git rev-parse HEAD }}
       - run:
           name: Deploy App
           command: |
