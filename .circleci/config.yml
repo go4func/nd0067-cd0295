@@ -51,7 +51,7 @@ jobs:
           command: npm run api:build
       - save_cache:
           name: Save Build Cache
-          key: build-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
+          key: build-{{ .Branch }}-{{ .Revision }}
           paths:
             - "udagram/udagram-api/www"
             - "udagram/udagram-frontend/www"
@@ -68,7 +68,7 @@ jobs:
       - restore_cache:
           name: Restore Build Cache
           keys:
-            - build-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
+            - build-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Deploy App
           command: |
