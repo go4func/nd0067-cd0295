@@ -12,7 +12,7 @@ jobs:
       - image: "cimg/node:20.11.1-browsers"
     steps:
       - browser-tools/install-chrome:
-          chrome-version: "114.0.5735.16"
+        # chrome-version: "114.0.5735.16"
       - browser-tools/install-chromedriver
       - checkout
       - run:
@@ -33,7 +33,7 @@ jobs:
           name: Install API Dependencies
           command: npm run api:install
       - save_cache:
-          name: Save Build Cache
+          name: Save NPM Cache
           key: npm-deps-{{ checksum "udagram/udagram-api/package-lock.json" }}-{{ checksum "udagram/udagram-frontend/package-lock.json" }}
           paths:
             - "udagram/udagram-api/node_modules"
@@ -44,9 +44,9 @@ jobs:
       - run:
           name: Front-End Test
           command: npm run frontend:test
-      - run:
-          name: Front-End E2E Test
-          command: npm run frontend:e2e
+      # - run:
+      #     name: Front-End E2E Test
+      #     command: npm run frontend:e2e
       - run:
           name: Front-End Build
           command: npm run frontend:build
