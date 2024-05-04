@@ -53,7 +53,6 @@ jobs:
           name: Inject ENV
           command: |
             touch udagram/udagram-api/www/.env
-
             cat <<EOF >udagram/udagram-api/www/.env
             POSTGRES_HOST=${POSTGRES_HOST}
             POSTGRES_USERNAME=${POSTGRES_USERNAME}
@@ -67,7 +66,6 @@ jobs:
             AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
             AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} 
             EOF
-
             cat udagram/udagram-api/www/.env
       - save_cache:
           name: Save Build Cache
