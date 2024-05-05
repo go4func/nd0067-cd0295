@@ -17,9 +17,6 @@ jobs:
       - browser-tools/install-chromedriver
       - checkout
       - run:
-          name: API Environment Variables
-          command: npm run api:env
-      - run:
           name: Build Tools Information
           command: |
             echo "NODE Version: $(node --version)"
@@ -65,10 +62,10 @@ jobs:
           keys:
             - build-{{ .Branch }}-{{ .Revision }}
       - run:
-          name: API Environment Variables
+          name: Config API Environment Variables
           command: npm run api:env
       - run:
-          name: Deploy App
+          name: Deploy WEB and API
           command: |
             ls -la udagram/udagram-api
             ls -la udagram/udagram-frontend
