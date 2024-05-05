@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  # orgs contain basic recipes and reproducible actions (install node, aws, etc.)
+  # orgs contain basic recipes and reproducible actions (install node, aws, eb, browser tools)
   node: circleci/node@5.2.0
   eb: circleci/aws-elastic-beanstalk@2.0.1
   aws-cli: circleci/aws-cli@4.1.3
@@ -16,7 +16,10 @@ jobs:
       - browser-tools/install-chromedriver
       - checkout
       - run:
-          name: Env Information
+          name: API Environment Variables
+          command: npm run api:env
+      - run:
+          name: Build Tools Information
           command: |
             echo "NODE Version: $(node --version)"
             echo "NPM Version: $(npm --version)"
@@ -60,6 +63,9 @@ jobs:
           name: Restore Build Cache
           keys:
             - build-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: API Environment Variables
+          command: npm run api:env
       - run:
           name: Deploy App
           command: |

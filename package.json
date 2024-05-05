@@ -8,6 +8,7 @@
     "api:install": "cd udagram/udagram-api && npm run ins",
     "api:build": "cd udagram/udagram-api && npm run build",
     "api:deploy": "cd udagram/udagram-api && npm run deploy",
+    "api:env": "cd udagram/udagram-api && npm run env",
     "deploy": "npm run api:deploy && npm run frontend:deploy"
   }
 }

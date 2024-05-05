@@ -8,6 +8,7 @@
 ## Elastic Beanstalk
 
 ![](../screenshots/beanstalk-env.jpeg)
+![](../screenshots/beanstalk-env-2.jpeg)
 
 ## S3
 
