@@ -27,7 +27,7 @@ Login
 ## AWS
 
 - [Infrastructure](./docs/Infrastructure_description.md)
-- [Configurations](./docs/Configuarations.md)
+- [Configurations](./docs/Configurations.md)
 - [Pipeline](./docs/Pipeline_description.md)
 - [Dependencies](./docs/Application_dependencies.md)
 

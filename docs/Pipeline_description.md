@@ -8,23 +8,32 @@
 
 Configuration file can be found at [config.yaml](../.circleci/config.yml)
 
+Application Secrets are configured in Environment Variables section.
+![](../screenshots/pipeline-env.png)
+
+### Trigger
+
+The CircleCi pipeline connected to github source
+![](../screenshots/pipeline-source.png)
+
+A push commit to `master` branch will trigger the pipeline.
+
 ## Workflow
 
 The workflow has 3 jobs that run the scripts from [package.json](../package.json)
 
-- build: install dependencies, lint, test and build
-- hold: manually approve to proceed to build jobs.
-- deploy: deploy web and api.
+![](../screenshots/pipeline-workflow.png)
+
+### 1. Build
+
+install dependencies, lint, test and build
+![](../screenshots/pipeline-build.png)
+
+### 2. Hold
 
 After build job, need manually approve to run deploy job.
 
-### Trigger
+### 3. Deploy
 
-A push commit to `master` branch will trigger the pipeline.
-
-## Screenshot
-
-![](../screenshots/pipeline-1.png)
-![](../screenshots/pipeline-2.png)
-![](../screenshots/pipeline-3.png)
-![](../screenshots/pipeline-4.png)
+deploy web and api.
+![](../screenshots/pipeline-deploy.png)

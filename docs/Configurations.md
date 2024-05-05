@@ -1,5 +1,7 @@
 # AWS Configurations
 
+Screenshots of AWS service configurations that used by this project.
+
 ## RDS
 
 ![](../screenshots/rds-config-1.png)
@@ -7,8 +9,8 @@
 
 ## Elastic Beanstalk
 
-![](../screenshots/beanstalk-env.jpeg)
-![](../screenshots/beanstalk-env-2.jpeg)
+![](../screenshots/beanstalk-overview.jpeg)
+![](../screenshots/beanstalk-config.jpeg)
 
 ## S3
 

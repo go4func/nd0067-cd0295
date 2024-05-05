@@ -1,6 +1,7 @@
 # Application Dependencies
 
-```
+## Dependencies
+
 - Node v20.11.1 (LTS) or more recent. While older versions can work it is advisable to keep node to latest LTS version
 
 - npm 10.2.4 (LTS) or more recent, Yarn can work but was not tested for this project
@@ -10,8 +11,6 @@
 - A RDS database running Postgres.
 
 - A S3 bucket for hosting uploaded pictures.
-
-```
 
 ## Installation
 
